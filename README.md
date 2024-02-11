@@ -1,66 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# WareGenie
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### _A complete (Work in progress now) warehouse management system repositoy with rich feature, following all production best practices._
 
-## About Laravel
+## Technology stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+As the name suggests, this repository is built on top of Laravel and MySQL, however in the implementation detail, we will find other supporting technologies as well.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<strong>Client side</strong>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   React - A JavaScript library for building user interfaces
 
-## Learning Laravel
+<strong>Server side</strong>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   Laravel - evented I/O for the backend
+-   MySQL - Fast, unopinionated, minimalist web framework for Node.js
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    Details frameworks and packages can be found in the package.json files in server and client directory.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Running the application
 
-## Laravel Sponsors
+This project can be run basically in two ways. One is using docker, other way is to run manually via vscode.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Below is features list
 
-### Premium Partners
+<strong>Inventory Management:</strong>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+-   Track and manage inventory levels in real-time.
+-   Organize items by category, SKU, or other customizable attributes.
+-   Support barcode scanning and RFID technology for efficient inventory tracking.
 
-## Contributing
+<strong>Order Management:</strong>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-   Receive and process incoming orders.
+-   Allocate and pick items for orders accurately and efficiently.
+-   Generate packing slips and shipping labels.
 
-## Code of Conduct
+<strong>Receiving:</strong>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   Receive and inspect incoming shipments.
+-   Update inventory levels automatically upon receipt.
+-   Handle returns and manage damaged goods.
 
-## Security Vulnerabilities
+<strong>Picking and Packing:</strong>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   Generate pick lists for orders.
+-   Optimize picking routes for efficiency.
+-   Pack items securely for shipping, considering package dimensions and weight.
 
-## License
+<strong>Shipping:</strong>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   Coordinate shipping carriers and methods.
+-   Generate shipping labels and track shipments.
+-   Provide customers with tracking information.
+
+<strong>Warehouse Layout and Slotting:</strong>
+
+-   Design and optimize warehouse layout for efficient storage and retrieval.
+-   Assign storage locations based on item characteristics and picking frequency.
+-   Optimize slotting to minimize travel time for pickers.
+
+<strong>Inventory Tracking and Traceability:</strong>
+
+-   Monitor inventory movements and transactions.
+-   Provide visibility into stock levels and locations.
+-   Enable traceability for product recalls or audits.
+
+<strong>Cycle Counting and Stocktaking:</strong>
+
+-   Conduct regular cycle counts to verify inventory accuracy.
+-   Schedule and perform physical stocktakes as needed.
+-   Reconcile discrepancies and update inventory records accordingly.
+
+<strong>Reporting and Analytics:</strong>
+
+-   Generate reports on inventory levels, order fulfillment, and warehouse performance.
+-   Analyze trends and identify opportunities for improvement.
+-   Provide dashboards for real-time monitoring of key metrics.
+
+<strong>Integration and API Support:</strong>
+
+-   Integrate with other business systems such as ERP, CRM, or e-commerce platforms.
+-   Provide APIs for custom integrations with third-party software.
+
+<strong>User Management and Permissions:</strong>
+
+-   Manage user accounts and access levels.
+-   Define roles and permissions to control access to sensitive data and functionality.
+
+<strong>Mobile Accessibility:</strong>
+
+-   Offer mobile applications for warehouse operations such as receiving, picking, and inventory counts.
+-   Support mobile barcode scanning for on-the-go tasks.
+
+<strong>Alerts and Notifications:</strong>
+
+-   Send alerts for low inventory levels, order delays, or other critical events.
+-   Notify users of important updates or tasks.
+
+<strong>Customization and Scalability:</strong>
+
+-   Allow customization to adapt the system to unique warehouse processes.
+-   Scale the system to support growing business needs and increasing inventory volumes.

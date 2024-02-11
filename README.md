@@ -1,10 +1,10 @@
 # WareGenie
 
-### _A complete (Work in progress now) warehouse management system repositoy with rich feature, following all production best practices._
+### _A complete (Work in progress now) warehouse management system repository with rich features, following all production best practices._
 
 ## Technology stack
 
-As the name suggests, this repository is built on top of Laravel and MySQL, however in the implementation detail, we will find other supporting technologies as well.
+As the name suggests, this repository is built on top of Laravel and MySQL, however, in the implementation detail, we will find other supporting technologies as well.
 
 <strong>Client side</strong>
 
@@ -12,10 +12,10 @@ As the name suggests, this repository is built on top of Laravel and MySQL, howe
 
 <strong>Server side</strong>
 
--   Laravel - evented I/O for the backend
--   MySQL - Fast, unopinionated, minimalist web framework for Node.js
+-   Laravel - A PHP web framework is known for its elegant syntax, developer-friendly features, and emphasis on simplicity and productivity.
+-   MySQL - An open-source relational database management system used for storing and managing structured data.
 
-    Details frameworks and packages can be found in the package.json files in server and client directory.
+    Details of frameworks and packages can be found in the package.json files in the server and client directory.
 
 ## Running the application
 
@@ -25,7 +25,7 @@ This project can be run basically in two ways. One is using docker, other way is
 
 <strong>Inventory Management:</strong>
 
--   Track and manage inventory levels in real-time.
+-   Track and manage inventory levels in real time.
 -   Organize items by category, SKU, or other customizable attributes.
 -   Support barcode scanning and RFID technology for efficient inventory tracking.
 

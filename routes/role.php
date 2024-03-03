@@ -8,4 +8,5 @@ Route::middleware('guest')->group(function () {
         ->name('role');
 
     Route::post('role', [RoleController::class, 'store']);
+    Route::post('role2', [RoleController::class, 'store']);
 });

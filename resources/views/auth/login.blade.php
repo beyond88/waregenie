@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -32,9 +29,10 @@
         <input type="email" name="email" required placeholder="Email"><br><br>
         <input type="password" name="password" required maxlength="10" placeholder="Password"><br><br>
         <input type="submit" name="login" value="Login">
+        <br><br>
+        <a href="{{ route('password.email') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forgot Password </a>
     </form>
 
 </div>
 </body>
 </html>
-

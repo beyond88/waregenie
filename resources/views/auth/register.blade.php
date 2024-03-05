@@ -22,17 +22,14 @@
         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
     </div>
 
-
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <input type="text" name="name" required placeholder="Name"><br><br>
-
         <input type="email" name="email" required placeholder="Email"><br><br>
-
         <input type="password" name="password" required maxlength="10" placeholder="Password"><br><br>
 
-{{--        <input type="password" name="password_confirmation" required maxlength="10" placeholder="Confirm Password"><br><br>--}}
+        <input type="password" name="password_confirmation" required maxlength="10" placeholder="Confirm Password"><br><br>
 
         <input type="submit" name="register" value="Submit">
 

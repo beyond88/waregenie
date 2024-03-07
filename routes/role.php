@@ -3,10 +3,11 @@
 use App\Http\Controllers\Role\RoleController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
-    Route::get('role', [RoleController::class, 'create'])
+Route::middleware('auth')->group(function () {
+    Route::get('role', [RoleController::class, 'index'])
         ->name('role');
 
-    Route::post('role', [RoleController::class, 'store']);
-    Route::post('role2', [RoleController::class, 'store']);
+    Route::get('role/create', [RoleController::class, 'create']);
+    Route::post('role/create', [RoleController::class, 'store'])->name('role.create');
+
 });

@@ -10,12 +10,16 @@ use Illuminate\View\View;
 
 class RoleController extends Controller
 {
+    public function index(): View
+    {
+        return view('role.role');
+    }
     /**
      * Display the registration view.
      */
     public function create(): View
     {
-        return view('role.role');
+        return view('role.create');
     }
 
     /**
@@ -25,15 +29,15 @@ class RoleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255']
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string', // Allow description to be optional
         ]);
 
-        $role = Role::create([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
+        $role = Role::create($validated);
 
-        return back()->withSuccess('Role has been created!');
+        return redirect()->route('role.create')
+            ->with('message', 'Role created successfully!')
+            ->with('type', 'success'); // Add type for message styling
     }
 }

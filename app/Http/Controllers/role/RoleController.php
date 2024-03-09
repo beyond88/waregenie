@@ -7,12 +7,14 @@ use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        return view('role.role');
+        $roles = Role::paginate(3);
+        return view('role.role', compact('roles'));
     }
     /**
      * Display the registration view.
@@ -39,5 +41,37 @@ class RoleController extends Controller
         return redirect()->route('role.create')
             ->with('message', 'Role created successfully!')
             ->with('type', 'success'); // Add type for message styling
+    }
+
+    public function edit($id): View
+    {
+        $role = Role::findOrFail($id);
+
+        return view('role.edit', compact('role'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|unique:roles,name,' . $id, // Unique rule excluding current role
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $role = Role::findOrFail($id);
+
+        $role->update($request->all());
+
+        return redirect()->route('role')->with('success', 'Role updated successfully!');
+    }
+
+    public function destroy($id): RedirectResponse
+    {
+        $role = Role::findOrFail($id);
+        $role->delete();
+
+        return redirect()->route('role')->with('success', 'Role deleted successfully!');
     }
 }

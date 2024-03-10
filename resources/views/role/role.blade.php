@@ -15,7 +15,7 @@
                         <h3 class="page-title"> Roles </h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{url('dashboard')}}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Roles</li>
                             </ol>
                         </nav>
@@ -24,8 +24,7 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-{{--                                    <h4 class="card-title">Striped Table</h4>--}}
-{{--                                    <p class="card-description"> Add class <code>.table-striped</code></p>--}}
+                                    <a href="{{url('role/create')}}" class="btn btn-success btn-fw" style="float:right;"><i class="icon-pencil"></i> Create Role</a>
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -44,7 +43,7 @@
                                                     <form method="POST" action="{{ route('role.destroy', $role->id) }}" onsubmit="return confirm('Are you sure you want to delete this role?');">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>

@@ -82,13 +82,13 @@
         <li class="nav-item nav-category"><span class="nav-link">User Management</span></li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="auth">
-                <span class="menu-title">General Pages</span>
+                <span class="menu-title">Role & User</span>
                 <i class="icon-doc menu-icon"></i>
             </a>
             <div class="collapse" id="user">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('role') }}"> Role </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="#"> User </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('user') }}"> User </a></li>
                 </ul>
             </div>
         </li>

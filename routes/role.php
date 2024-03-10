@@ -13,5 +13,4 @@ Route::middleware('auth')->group(function () {
     Route::get('role/{id}/edit', [RoleController::class, 'edit']);
     Route::put('role/{id}', [RoleController::class, 'update'])->name('role.update');
     Route::delete('role/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
-
 });

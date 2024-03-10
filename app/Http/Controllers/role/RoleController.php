@@ -33,14 +33,14 @@ class RoleController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string', // Allow description to be optional
+            'description' => 'nullable|string',
         ]);
 
         $role = Role::create($validated);
 
         return redirect()->route('role.create')
             ->with('message', 'Role created successfully!')
-            ->with('type', 'success'); // Add type for message styling
+            ->with('type', 'success');
     }
 
     public function edit($id): View

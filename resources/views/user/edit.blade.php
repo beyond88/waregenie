@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Email</label>
-                                            <input type="email" name="email" id="email" required class="form-control" placeholder="Email" value="{{ old('email', $user->email) }}">
+                                            <input type="email" name="email" id="email" required class="form-control" placeholder="Email" value="{{ old('email', $user->email) }}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Password</label>
@@ -53,7 +53,17 @@
                                             <label for="name">Confirm Password</label>
                                             <input type="password" name="password" id="password_confirmation" class="form-control" placeholder="Password" value="{{ old('password', $user->password) }}">
                                         </div>
-
+                                        <div class="form-group">
+                                            <label for="role">Role</label>
+                                            <select name="role_id" id="role_id" class="form-control">
+                                                <option value="">Select Role</option>
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->id }}" @if ($user->role_id === $role->id)
+                                                        selected
+                                                        @endif>{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <button type="submit" class="btn btn-primary mr-2">Update</button>
                                         <button class="btn btn-light" onclick="window.location.href='/user'">Cancel</button>
                                     </form>

@@ -31,6 +31,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Role</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -40,6 +41,7 @@
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
+                                                <td>{{ $user->role->name ?? 'N/A' }}</td>
                                                 <td>
                                                     <a href="{{ url('user/' . $user->id . '/edit') }}" class="btn btn-primary btn-sm">Edit</a>
                                                     <form method="POST" action="{{ route('user.destroy', $user->id) }}" onsubmit="return confirm('Are you sure you want to delete this user?');">

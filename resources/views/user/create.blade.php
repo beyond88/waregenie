@@ -48,6 +48,15 @@
                                             <label for="name">Confirm Password</label>
                                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required placeholder="Confirm Password">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="role">Role</label>
+                                            <select name="role_id" id="role_id" class="form-control">
+                                                <option value="">Select Role</option>
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <button type="submit" class="btn btn-primary mr-2">Create</button>
                                         <button class="btn btn-light" onclick="window.location.href='/user'">Cancel</button>
                                     </form>

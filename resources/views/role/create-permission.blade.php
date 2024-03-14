@@ -33,15 +33,39 @@
                                     <form method="POST" action="{{ route('role.create') }}" class="forms-sample">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" name="name" id="name" class="form-control">
+                                            <label for="role">Role</label>
+                                            <select name="role_id" id="role_id" class="form-control">
+                                                <option value="">Select Role</option>
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="name">Description</label>
-                                            <textarea name="description" id="description" placeholder="Description" rows="3" cols="3" class="form-control"></textarea>
+                                            <fieldset>
+                                                <legend>Inventory</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Create</button>
-                                        <button class="btn btn-light" onclick="window.location.href='/role'">Cancel</button>
+                                        <button class="btn btn-light" onclick="window.location.href='/permissions'">Cancel</button>
                                     </form>
 
                                 </div>

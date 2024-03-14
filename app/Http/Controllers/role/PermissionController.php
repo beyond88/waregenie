@@ -4,6 +4,7 @@ namespace App\Http\Controllers\role;
 
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -20,9 +21,10 @@ class PermissionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $roles = Role::all();
+        return view('role.create-permission', compact('roles'));
     }
 
     /**

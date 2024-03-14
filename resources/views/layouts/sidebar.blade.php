@@ -89,6 +89,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('role') }}"> Role </a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('user') }}"> User </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('permissions') }}"> Permissions </a></li>
                 </ul>
             </div>
         </li>

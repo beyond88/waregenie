@@ -21,7 +21,7 @@
                         </nav>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 grid-margin stretch-card">
+                        <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     @if (session()->has('message') && session()->get('type') === 'success')
@@ -45,6 +45,86 @@
                                         <div class="form-group">
                                             <fieldset>
                                                 <legend>Inventory</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Order</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Receiving</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Picking and Packing</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Shipping</legend>
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">

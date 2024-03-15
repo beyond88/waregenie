@@ -30,7 +30,7 @@
                                         </div>
                                     @endif
 
-                                    <form method="POST" action="{{ route('role.create') }}" class="forms-sample">
+                                    <form method="POST" action="{{ route('permissions.create') }}" class="forms-sample">
                                         @csrf
                                         <div class="form-group">
                                             <label for="role">Role</label>

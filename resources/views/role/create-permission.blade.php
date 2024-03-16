@@ -42,10 +42,10 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" style="display: flex; flex-direction: row; gap: 40px;">
                                             <fieldset>
                                                 <legend>Inventory</legend>
-                                                <div class="form-group">
+                                                <div class="form-group" >
                                                     <div class="form-check">
                                                         <label class="form-check-label">
                                                             <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>

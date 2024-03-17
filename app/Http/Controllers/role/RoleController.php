@@ -33,14 +33,29 @@ class RoleController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'nullable|string|max:500',
         ]);
 
-        $role = Role::create($validated);
+//        $role = Role::create($validated);
+//
+//        return redirect()->route('role.create')
+//            ->with('message', 'Role created successfully!')
+//            -
 
-        return redirect()->route('role.create')
-            ->with('message', 'Role created successfully!')
-            ->with('type', 'success');
+        try {
+            $role = Role::create($validated);
+            return redirect()->route('role.create')
+                ->with('message', 'Role created successfully!')
+                ->with('type', 'success');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            if(str_contains($e->getMessage(), 'roles_name_unique')) {
+                session()->flash('error', 'The role name "' . $request->name . '" already exists. Please choose a different name.');
+                return redirect()->back()->withInput();
+            } else {
+                return redirect()->back()->withInput();
+            }
+        }
     }
 
     public function edit($id): View

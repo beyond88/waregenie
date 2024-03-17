@@ -49,7 +49,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="2">No roles found!</td>
+                                                <td colspan="3">No roles found!</td>
                                             </tr>
                                         @endforelse
                                         </tbody>

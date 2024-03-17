@@ -30,11 +30,18 @@
                                         </div>
                                     @endif
 
-                                    <form method="POST" action="{{ route('role.create') }}" class="forms-sample">
+                                    @if (session('error'))
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+
+
+                                        <form method="POST" action="{{ route('role.create') }}" class="forms-sample">
                                         @csrf
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" name="name" id="name" class="form-control">
+                                            <input type="text" name="name" id="name" required class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Description</label>

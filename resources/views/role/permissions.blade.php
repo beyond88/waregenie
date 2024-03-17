@@ -21,9 +21,182 @@
                         </nav>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 grid-margin stretch-card">
+                        <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
+                                    @if (session()->has('message') && session()->get('type') === 'success')
+                                        <div class="alert alert-success">
+                                            {{ session()->get('message') }}
+                                        </div>
+                                    @endif
+
+                                    <form method="POST" action="{{ route('permissions') }}" class="forms-sample">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="role">Role</label>
+                                            <select name="role_id" id="role_id" class="form-control">
+                                                <option value="">Select Role</option>
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group" style="display: flex; flex-direction: row; gap: 40px;">
+                                            <fieldset>
+                                                <legend>Inventory</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Order</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Receiving</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Picking and Packing</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Shipping</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Report</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2">Save</button>
+                                        <button class="btn btn-light" onclick="window.location.href='/permissions'">Cancel</button>
+                                    </form>
 
                                 </div>
                             </div>

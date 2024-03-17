@@ -36,12 +36,6 @@ class RoleController extends Controller
             'description' => 'nullable|string|max:500',
         ]);
 
-//        $role = Role::create($validated);
-//
-//        return redirect()->route('role.create')
-//            ->with('message', 'Role created successfully!')
-//            -
-
         try {
             $role = Role::create($validated);
             return redirect()->route('role.create')

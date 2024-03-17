@@ -30,11 +30,17 @@
                                         </div>
                                     @endif
 
+                                    @if (session('error'))
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+
                                     <form method="POST" action="{{ route('permissions') }}" class="forms-sample">
                                         @csrf
                                         <div class="form-group">
                                             <label for="role">Role</label>
-                                            <select name="role_id" id="role_id" class="form-control">
+                                            <select name="role_id" id="role_id" class="form-control" onchange="loadPermissions(this.value)">
                                                 <option value="">Select Role</option>
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -48,22 +54,22 @@
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" disabled=""> View <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[inventory][view]" value="view"> View <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[inventory][create]" value="create"> Create <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[inventory][edit]" value="edit"> Edit <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[inventory][delete]" value="delete"> Delete <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -73,22 +79,22 @@
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[order][view]" value="view"> View <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[order][create]" value="create"> Create <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[order][edit]" value="edit"> Edit <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[order][delete]" value="delete"> Delete <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -98,22 +104,22 @@
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][view]" value="view"> View <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][create]" value="create"> Create <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][edit]" value="edit"> Edit <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][delete]" value="delete"> Delete <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -123,22 +129,22 @@
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][view]" value="view"> View <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][create]" value="create"> Create <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][edit]" value="edit"> Edit <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[receiving][delete]" value="delete"> Delete <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -148,22 +154,22 @@
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[shipping][view]" value="view"> View <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[shipping][create]" value="create"> Create <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[shipping][edit]" value="edit"> Edit <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[shipping][delete]" value="delete"> Delete <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -173,22 +179,22 @@
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> View <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[report][view]" value="view"> View <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input"> Create <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[report][create]" value="create"> Create <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" checked=""> Edit <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[report][edit]" value="edit"> Edit <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" disabled=""> Delete <i class="input-helper"></i>
+                                                            <input type="checkbox" class="form-check-input" name="permissions[report][delete]" value="delete"> Delete <i class="input-helper"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -197,6 +203,27 @@
                                         <button type="submit" class="btn btn-primary mr-2">Save</button>
                                         <button class="btn btn-light" onclick="window.location.href='/permissions'">Cancel</button>
                                     </form>
+
+                                    <script>
+                                        function loadPermissions(roleId) {
+                                            if(roleId !==''){
+                                                $.ajax({
+                                                    url: "{{ route('permissions.load') }}",
+                                                    type: "GET",
+                                                    data: {
+                                                        role_id: roleId,
+                                                        _token: "{{ csrf_token() }}" // Include CSRF token
+                                                    },
+                                                    success: function(response) {
+                                                        console.log('get permissions response', response);
+                                                    },
+                                                    error: function(jqXHR, textStatus, errorThrown) {
+                                                        console.error("Error loading permissions:", textStatus, errorThrown);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    </script>
 
                                 </div>
                             </div>

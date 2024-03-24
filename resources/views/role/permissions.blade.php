@@ -205,19 +205,49 @@
                                     </form>
 
                                     <script>
-                                        function loadPermissions(roleId) {
+                                        function loadPermissions(roleId){
                                             if(roleId !==''){
                                                 $.ajax({
                                                     url: "{{ route('permissions.load') }}",
                                                     type: "GET",
                                                     data: {
                                                         role_id: roleId,
-                                                        _token: "{{ csrf_token() }}" // Include CSRF token
+                                                        _token: "{{ csrf_token() }}"
                                                     },
-                                                    success: function(response) {
-                                                        console.log('get permissions response', response);
+                                                    success: function(response){
+                                                        try {
+                                                            if( response.length > 0 ){
+                                                                const permissionsData = JSON.parse(response);
+                                                                if (typeof permissionsData === 'object' && permissionsData !== null) {
+                                                                    $('.form-check-input').each(function() {
+                                                                        $(this).prop('checked', false);
+                                                                    });
+                                                                    $.each(permissionsData, function(module, permissions) {
+                                                                        if (typeof permissions === 'object' && permissions !== null) {
+                                                                            $.each(permissions, function(index, permission) {
+                                                                                let checkbox = $('[name="permissions[' + module + '][' + permission + ']"]');
+                                                                                if (checkbox.length > 0) {
+                                                                                    checkbox.prop('checked', true);
+                                                                                } else {
+                                                                                    console.warn('Checkbox not found for permission: ' + module + '.' + permissions);
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                } else {
+                                                                    console.error('Unexpected response format:', response);
+                                                                }
+                                                            } else{
+                                                                $('.form-check-input').each(function() {
+                                                                    $(this).prop('checked', false);
+                                                                });
+                                                                alert('Permissions is not set yet!');
+                                                            }
+                                                        } catch (error) {
+                                                            console.error('Error parsing JSON response:', error);
+                                                        }
                                                     },
-                                                    error: function(jqXHR, textStatus, errorThrown) {
+                                                    error: function(jqXHR, textStatus, errorThrown){
                                                         console.error("Error loading permissions:", textStatus, errorThrown);
                                                     }
                                                 });

@@ -199,6 +199,31 @@
                                                     </div>
                                                 </div>
                                             </fieldset>
+                                            <fieldset>
+                                                <legend>User Management</legend>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" name="permissions[user][view]" value="view"> View <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" name="permissions[user][create]" value="create"> Create <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" name="permissions[user][edit]" value="edit"> Edit <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" name="permissions[user][delete]" value="delete"> Delete <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Save</button>
                                         <button class="btn btn-light" onclick="window.location.href='/permissions'">Cancel</button>

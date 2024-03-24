@@ -85,7 +85,7 @@
                 <span class="menu-title">Role & User</span>
                 <i class="icon-doc menu-icon"></i>
             </a>
-            <div class="collapse" id="user">
+            <div class="collapse {{ (is_route_active('user') || is_route_active('role') || is_route_active('permissions')) ? 'show' : '' }}" id="user">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('role') }}"> Role </a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('user') }}"> User </a></li>

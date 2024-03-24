@@ -30,19 +30,25 @@
                                         </div>
                                     @endif
 
+                                    @if (session('error'))
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+
                                     <form method="POST" action="{{ route('role.create') }}" class="forms-sample">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" name="name" id="name" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Description</label>
-                                            <textarea name="description" id="description" placeholder="Description" rows="3" cols="3" class="form-control"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mr-2">Create</button>
-                                        <button class="btn btn-light" onclick="window.location.href='/role'">Cancel</button>
-                                    </form>
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" name="name" id="name" required class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Description</label>
+                                        <textarea name="description" id="description" placeholder="Description" rows="3" cols="3" class="form-control"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                                    <button class="btn btn-light" onclick="window.location.href='/role'">Cancel</button>
+                                </form>
 
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 @extends("layouts.layout")
-@section("title", "Create User | Waregenie")
+@section("title", "Profile | Waregenie")
 @section("content")
     <div class="container-scroller">
 
@@ -12,11 +12,11 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title"> Create User </h3>
+                        <h3 class="page-title"> Edit Profile </h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{url('user')}}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Create User</li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
                             </ol>
                         </nav>
                     </div>
@@ -38,6 +38,12 @@
 
                                     <form method="POST" action="{{ route('user.create') }}" class="forms-sample">
                                         @csrf
+
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type='file' name="profile-pic" id="profile-pic" required class="form-control"/>
+                                            <img id="myImg" src="#" style="width: 100%;">
+                                        </div>
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input type="text" name="name" id="name" required class="form-control" placeholder="Name">
@@ -54,18 +60,38 @@
                                             <label for="name">Confirm Password</label>
                                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required placeholder="Confirm Password">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="role">Role</label>
-                                            <select name="role_id" id="role_id" class="form-control">
-                                                <option value="">Select Role</option>
-                                                @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mr-2">Create</button>
-                                        <button class="btn btn-light" onclick="window.location.href='/user'">Cancel</button>
+                                        <button type="submit" class="btn btn-primary mr-2">Save Changes</button>
                                     </form>
+
+                                    <script>
+                                        window.addEventListener('load', function () {
+                                            let fileInput = document.querySelector('input[type="file"]');
+                                            let imgPreview = document.getElementById('myImg');
+
+                                            fileInput.addEventListener('change', function () {
+                                                if (this.files && this.files[0]) {
+                                                    let file = this.files[0];
+
+                                                    if (file.size > 2048 * 1024) {
+                                                        alert('Image size cannot exceed 2 MB. Please select a smaller image.');
+                                                        return;
+                                                    }
+
+                                                    if (!['image/jpg', 'image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+                                                        alert('Invalid image format. Please select a JPEG, PNG, or GIF image.');
+                                                        return;
+                                                    }
+
+                                                    let imgURL = URL.createObjectURL(file);
+                                                    imgPreview.src = imgURL;
+
+                                                    imgPreview.onload = function () {
+                                                        URL.revokeObjectURL(imgURL);
+                                                    };
+                                                }
+                                            });
+                                        });
+                                    </script>
 
                                 </div>
                             </div>

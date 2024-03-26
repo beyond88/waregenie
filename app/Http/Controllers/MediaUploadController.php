@@ -5,47 +5,65 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage\Image\Facades\Image;
+use App\Models\Role;
+use Illuminate\Support\Str;
 
 class MediaUploadController extends Controller
 {
-    public function upload(Request $request)
+    /**
+     * Upload media file.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadMedia(Request $request)
     {
-        try {
-            $request->validate([
-                'file' => ['required', 'file', 'max:2048', 'mimes:jpeg,png,jpg,gif'], // Adjust validation rules as needed
-            ]);
+        $this->validate($request, [
+            'file' => 'required|file|mimes:jpg,jpeg,png,gif,ico,webp,pdf,doc,docx,ppt,pptx,ods,xls,xlsx,psd,xml,mp3,m4a,ogg,wav,mp4,m4v,mov,wmv,avi,mpg,ogv,3gp,3g2,zip,rar,7z',
+        ]);
 
-            $file = $request->file('file');
-            $originalFilename = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
+        $file = $request->file('file');
+        $originalName = $file->getClientOriginalName();
+        $fileName = pathinfo($originalName, PATHINFO_FILENAME);
+        $extension = $file->getClientOriginalExtension();
 
-            // Generate a unique filename
-            $filename = uniqid('', true) . '.' . $extension;
-
-            // Use Intervention Image for resizing/manipulation (optional)
-            $image = Image::make($file);
-            // Perform any image manipulations (resize, watermark, etc.)
-            // $image->resize(800, 600); // Example resize
-
-            $image->save(storage_path('app/public/media/' . $filename)); // Adjust storage path as needed
-
-            return response()->json([
-                'success' => true,
-                'filename' => $filename,
-                'original_filename' => $originalFilename,
-                'url' => Storage::url('media/' . $filename), // Adjust URL generation as needed
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $e->validator->errors(),
-            ], 422);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Upload failed: ' . $e->getMessage(),
-            ], 500);
+        // Generate unique filename with random string if duplicate exists (in table or storage)
+        $newFileName = $fileName . '_' . Str::random(10) . '.' . $extension;
+        while ($this->checkForDuplicate($fileName, $extension, $newFileName)) {
+            $newFileName = $fileName . '_' . Str::random(10) . '.' . $extension;
         }
+
+        // Upload the file to the media directory
+        $file->storeAs('public/media', $newFileName);
+
+        // Insert data into the media table
+        $mediaId = Media::create([
+            'media_name' => $newFileName,
+        ])->id;
+
+        return response()->json(['media_id' => $mediaId]);
+    }
+
+    /**
+     * Check for duplicate filename in media table and storage.
+     *
+     * @param string $fileName
+     * @param string $extension
+     * @param string $newFileName (optional)
+     * @return bool
+     */
+    private function checkForDuplicate($fileName, $extension, $newFileName = null)
+    {
+        $existingMedia = Media::where('media_name', $fileName . '.' . $extension)->first();
+
+        if ($existingMedia) {
+            return true;
+        }
+
+        if ($newFileName) {
+            return Storage::disk('public')->exists("media/$newFileName");
+        }
+
+        return Storage::disk('public')->exists("media/$fileName.$extension");
     }
 }

@@ -42,7 +42,9 @@
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input type='file' name="profile-pic" id="profile-pic" required class="form-control"/>
-                                            <img id="myImg" src="#" style="width: 100%;">
+                                        </div>
+                                        <div class="form-group profile-avatar-area" id="">
+                                            <img id="profile-avatar" src="{{ asset('images/avatar.png') }}" style="width: 100%;">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Name</label>
@@ -66,7 +68,7 @@
                                     <script>
                                         window.addEventListener('load', function () {
                                             let fileInput = document.querySelector('input[type="file"]');
-                                            let imgPreview = document.getElementById('myImg');
+                                            let imgPreview = document.getElementById('profile-avatar');
 
                                             fileInput.addEventListener('change', function () {
                                                 if (this.files && this.files[0]) {

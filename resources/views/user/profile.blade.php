@@ -36,31 +36,31 @@
                                         </div>
                                     @endif
 
-                                    <form method="POST" action="{{ route('user.create') }}" class="forms-sample">
+                                    <form method="POST" action="{{ route('user.profile') }}" class="forms-sample" enctype="multipart/form-data">
                                         @csrf
 
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type='file' name="profile-pic" id="profile-pic" required class="form-control"/>
+                                            <input type='file' name="file" id="file" class="form-control"/>
                                         </div>
-                                        <div class="form-group profile-avatar-area" id="">
+                                        <div class="form-group profile-avatar-area">
                                             <img id="profile-avatar" src="{{ asset('images/avatar.png') }}" style="width: 100%;">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" name="name" id="name" required class="form-control" placeholder="Name">
+                                            <input type="text" name="name" id="name" required class="form-control" placeholder="Name" value="{{Auth::user()->name}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Email</label>
-                                            <input type="email" name="email" id="email" required class="form-control" placeholder="Email">
+                                            <input type="email" name="email" id="email" required class="form-control" placeholder="Email" value="{{Auth::user()->email}}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Password</label>
-                                            <input type="password" name="password" id="password" required class="form-control" placeholder="Password">
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Confirm Password</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required placeholder="Confirm Password">
+                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password">
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Save Changes</button>
                                     </form>

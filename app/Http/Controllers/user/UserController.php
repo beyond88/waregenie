@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-//use GiveP2P\P2P\View;
 use App\Models\Role;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -15,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\MediaUploadController;
 
 class UserController extends Controller
 {
@@ -156,6 +156,17 @@ class UserController extends Controller
             ->with('message', 'User updated successfully!')
             ->with('type', 'success');
     }
+
+    public function profileUpdate(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $mediaUploader = app()->make(MediaUploadController::class); // Improved approach for controller instantiation
+
+            $mediaResponse = $mediaUploader->uploadMedia($request);
+            $mediaId = $mediaResponse->json('media_id');
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

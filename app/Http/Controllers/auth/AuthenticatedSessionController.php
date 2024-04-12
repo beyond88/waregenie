@@ -25,6 +25,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        if (! $request->authenticate()) {
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Invalid email or password'])
+                ->withInput($request->only('email', 'remember')); // Preserve form data (optional)
+        }
+
         $request->authenticate();
 
         $request->session()->regenerate();

@@ -44,7 +44,7 @@
                                             <input type='file' name="file" id="file" class="form-control"/>
                                         </div>
                                         <div class="form-group profile-avatar-area">
-                                            <img id="profile-avatar" src="{{ asset('images/avatar.png') }}" style="width: 100%;">
+                                            <img id="profile-avatar" src="{{ $avatar }}" style="width: 100%;">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Name</label>
@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Confirm Password</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password">
+                                            <input type="password" name="password_confirmation" id="confirmed" class="form-control" placeholder="Confirm Password">
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Save Changes</button>
                                     </form>

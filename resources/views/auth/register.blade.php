@@ -24,6 +24,11 @@
                                 <div class="form-group">
                                     <input type="password" name="password" required maxlength="10" class="form-control form-control-lg" id="password" placeholder="Password">
                                 </div>
+
+                                <div class="form-group">
+                                    <input type="password" name="password_confirmation" required maxlength="10" class="form-control form-control-lg" id="confirmed" placeholder="Confirm Password">
+                                </div>
+
                                 <div class="mt-3">
                                     <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style="background-color: #16afb2; border-color: #16afb2;" name="register" value="Sign Up">
                                 </div>

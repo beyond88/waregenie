@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_metas', function (Blueprint $table) {
-            $table->id();
-            $table->smallInteger('user_id');
-            $table->string('meta_key');
-            $table->string('meta_value');
-            $table->timestamps();
+        Schema::table('user_metas', function (Blueprint $table) {
+            $table->renameColumn('meta_name', 'meta_key');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_metas');
+        Schema::table('user_metas', function (Blueprint $table) {
+            $table->renameColumn('meta_key', 'meta_name');
+        });
     }
 };

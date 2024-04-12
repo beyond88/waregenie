@@ -14,5 +14,5 @@ Route::middleware('auth')->group(function () {
     Route::put('user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     Route::get('user/profile', [ProfileController::class, 'show'])->name('user.profile');
-    Route::post('user/profile', [UserController::class, 'profileUpdate'])->name('user.profile');
+    Route::post('user/profile', [ProfileController::class, 'profileUpdate'])->name('user.profile');
 });

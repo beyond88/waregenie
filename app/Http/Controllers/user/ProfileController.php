@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
 use App\Http\Controllers\Controller;
-//use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\MediaUploadController;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -17,8 +16,36 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        $user = Auth::user();
-        return view('user.profile', compact('user'));
+        $avatarId = getUserMeta(Auth::id(), 'avatar');
+        $avatar = getImageById($avatarId);
+//        $avatar = Storage::disk('public')->temporaryUrl($avatar, now()->addMinutes(60));
+
+        if( !empty($avatar) ) {
+            $avatar = asset('storage/app/public/media/' . basename($avatar));
+        }
+
+        if(empty($avatar)) {
+            $avatar = asset('images/avatar.png');
+        }
+
+        return view('user.profile', compact('avatar'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+
+        if ($request->hasFile('file')) {
+            $mediaUploader = app()->make(MediaUploadController::class);
+            $mediaResponse = $mediaUploader->uploadMedia($request);
+            $content = $mediaResponse->getContent();
+            $data = json_decode($content, true);
+            $mediaId = $data['media_id'] ?? null;
+
+            $userId = Auth::id();
+            $metaKey = 'avatar';
+            $metaValue = $mediaId;
+            updateUserMeta($userId, $metaKey, $metaValue);
+        }
     }
 
     /**

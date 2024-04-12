@@ -15,6 +15,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\MediaUploadController;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -89,58 +90,20 @@ class UserController extends Controller
         return view('user.edit', compact('user', 'roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-//    public function update(Request $request, User $user): RedirectResponse
-//    {
-//        $request->validate([
-//            'name' => ['required', 'string', 'max:255'],
-//        ]);
-//
-//        if ($request->has('name')) {
-//            $user->name = $request->name;
-//        }
-//
-//        $user->fill($request->except('email'));
-//
-//        if ($request->filled('password')) {
-//            if( $user->password === $request->password ){
-//                $user->password = $request->password;
-//            } else {
-//                $user->password = Hash::make($request->password);
-//            }
-//        }
-//
-//        if ($request->has('role_id')) {
-//            $user->role_id = $request->role_id;
-//        }
-//
-//        $user->save();
-//
-//        return redirect()->route('user')
-//            ->with('message', 'User updated successfully!')
-//            ->with('type', 'success');
-//    }
-
     public function update(Request $request, $id)
     {
-        // Validate incoming request data
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'nullable|min:8',
         ]);
 
-        // Find the user by ID
         $user = User::findOrFail($id);
 
-        // Update the user's email if it has changed
         if ($validatedData['email'] !== $user->email) {
             $user->email = $validatedData['email'];
         }
 
-        // Update the user's password if provided
         if (isset($validatedData['password'])) {
             $user->password = Hash::make($validatedData['password']);
         }
@@ -149,24 +112,12 @@ class UserController extends Controller
             $user->role_id = $request->role_id;
         }
 
-        // Save the updated user
         $user->save();
 
         return redirect()->route('user')
             ->with('message', 'User updated successfully!')
             ->with('type', 'success');
     }
-
-    public function profileUpdate(Request $request)
-    {
-        if ($request->hasFile('file')) {
-            $mediaUploader = app()->make(MediaUploadController::class); // Improved approach for controller instantiation
-
-            $mediaResponse = $mediaUploader->uploadMedia($request);
-            $mediaId = $mediaResponse->json('media_id');
-        }
-    }
-
 
     /**
      * Remove the specified resource from storage.

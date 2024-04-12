@@ -12,7 +12,7 @@ class DatabaseConnectionCheck extends Command
      *
      * @var string
      */
-    protected $signature = 'db:check {--name=default : The name of the database connection}';
+    protected $signature = 'db:check {--name=default : mysql}';
 
     /**
      * The console command description.

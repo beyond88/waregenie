@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MediaUploadController;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class ProfileController extends Controller
 {
@@ -18,13 +20,12 @@ class ProfileController extends Controller
     {
         $avatarId = getUserMeta(Auth::id(), 'avatar');
         $avatar = getImageById($avatarId);
-//        $avatar = Storage::disk('public')->temporaryUrl($avatar, now()->addMinutes(60));
 
         if( !empty($avatar) ) {
-            $avatar = asset('storage/app/public/media/' . basename($avatar));
+            $avatar = asset('storage/media/' . basename($avatar));
         }
 
-        if(empty($avatar)) {
+        if( empty($avatar) ) {
             $avatar = asset('images/avatar.png');
         }
 
@@ -33,7 +34,6 @@ class ProfileController extends Controller
 
     public function profileUpdate(Request $request)
     {
-
         if ($request->hasFile('file')) {
             $mediaUploader = app()->make(MediaUploadController::class);
             $mediaResponse = $mediaUploader->uploadMedia($request);
@@ -46,6 +46,21 @@ class ProfileController extends Controller
             $metaValue = $mediaId;
             updateUserMeta($userId, $metaKey, $metaValue);
         }
+
+        if($request->filled('password')){
+            $request->validate([
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+
+            $user = Auth::user();
+            $newPassword = Hash::make($request->password);
+            if (!Hash::check($newPassword, $user->password)) {
+                $user->password = $newPassword;
+                $user->save();
+            }
+        }
+
+        return redirect()->route('user.profile')->with('success', 'Profile updated successfully!');
     }
 
     /**

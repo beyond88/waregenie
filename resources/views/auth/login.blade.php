@@ -1,5 +1,5 @@
 @extends("layouts.layout")
-@section("title", "Login | Waregenie")
+@section("title", "Login | WareGenie")
 @section("content")
 
 <div class="container-scroller">

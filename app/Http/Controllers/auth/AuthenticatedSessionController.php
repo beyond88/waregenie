@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $request->session()->put('user_id', Auth::id());
+        $request->session()->put('avatar', getProfilePicture());
 
         return redirect()->route('dashboard');
     }

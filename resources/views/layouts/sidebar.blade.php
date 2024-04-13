@@ -2,14 +2,14 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-            <a href="#" class="nav-link">
+            <a href="{{ route('user.profile') }}" class="nav-link">
                 <div class="profile-image">
-                    <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="profile image">
+                    <img class="img-xs rounded-circle" src="{{ getProfilePicture() }}" alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                    <p class="profile-name">Allen Moreno</p>
-                    <p class="designation">Administrator</p>
+                    <p class="profile-name">{{ Auth::user()->name }}</p>
+                    <p class="designation">{{ getUserRoleName(Auth::user()->id) }}</p>
                 </div>
                 <div class="icon-container">
                     <i class="icon-bubbles"></i>
@@ -21,7 +21,7 @@
             <span class="nav-link">Dashboard</span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ url('/dashboard') }}">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
             </a>

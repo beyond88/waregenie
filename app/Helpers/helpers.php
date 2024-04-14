@@ -82,3 +82,21 @@ function getUserRoleName($userId)
     }
 }
 
+function generateTextAvatar($fullName, $size = 100) {
+
+    $words = explode(' ', trim($fullName));
+
+    $firstName = isset($words[0]) ? $words[0] : '';
+    $firstInitial = strtoupper(substr($firstName, 0, 1));
+
+    $lastName = isset($words[count($words) - 1]) ? $words[count($words) - 1] : '';
+    $lastInitial = strtoupper(substr($lastName, 0, 1));
+
+    $avatar = '<div class="text-avatar" style="width: ' . $size . 'px; height: ' . $size . 'px; line-height: ' . $size . 'px;">';
+    $avatar .= '<span>' . $firstInitial . $lastInitial . '</span>';
+    $avatar .= '</div>';
+
+    echo $avatar;
+}
+
+

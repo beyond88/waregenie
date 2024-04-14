@@ -13359,4 +13359,17 @@ dl {
     object-fit: cover;
 }
 
+.text-avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #38ce3c;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+    margin: auto;
+
+}
+
 /*# sourceMappingURL=style.css.map */

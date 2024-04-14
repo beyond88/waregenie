@@ -57,10 +57,20 @@
             </li>
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
                 <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                    <img class="img-xs rounded-circle ml-2" src="{{ getProfilePicture() }}" alt="Profile image" width="37" height="37"> <span class="font-weight-normal"> {{ Auth::user()->name }} </span></a>
+                    @if(getProfilePicture())
+                        <img class="img-xs rounded-circle ml-2" src="{{ getProfilePicture() }}" alt="Profile image" width="37" height="37"> <span class="font-weight-normal"> {{ Auth::user()->name }} </span>
+                    @else
+                        {{ generateTextAvatar(Auth::user()->name, 37) }}
+                    @endif
+                </a>
+
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <div class="dropdown-header text-center">
-                        <img class="img-md rounded-circle" src="{{ getProfilePicture() }}" alt="Profile image" width="100" height="100">
+                        @if(getProfilePicture())
+                            <img class="img-md rounded-circle" src="{{ getProfilePicture() }}" alt="Profile image" width="100" height="100">
+                        @else
+                            {{ generateTextAvatar(Auth::user()->name, 100) }}
+                        @endif
                         <p class="mb-1 mt-3">{{ Auth::user()->name }}</p>
                         <p class="font-weight-light text-muted mb-0">{{ Auth::user()->email }}</p>
                     </div>

@@ -4,7 +4,12 @@
         <li class="nav-item nav-profile">
             <a href="{{ route('user.profile') }}" class="nav-link">
                 <div class="profile-image">
-                    <img class="img-xs rounded-circle" src="{{ getProfilePicture() }}" alt="profile image">
+
+                    @if(getProfilePicture())
+                        <img class="img-xs rounded-circle" src="{{ getProfilePicture() }}" alt="profile image">
+                    @else
+                        {{ generateTextAvatar(Auth::user()->name, 35) }}
+                    @endif
                     <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">

@@ -54,8 +54,10 @@
                                         @endforelse
                                         </tbody>
                                     </table>
-                                    <br />
-                                    {{ $roles->links() }}
+
+                                    <div class="role-pagination-container">
+                                        {{ $roles->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

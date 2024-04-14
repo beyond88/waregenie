@@ -76,7 +76,8 @@
             </a>
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('media.media') }}"> Media List </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('media.media') }}"> Library </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('media.new') }}"> Add New </a></li>
                 </ul>
             </div>
         </li>

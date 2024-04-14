@@ -13369,7 +13369,121 @@ dl {
     text-align: center;
     line-height: 100px;
     margin: auto;
+}
 
+.media-container {
+    max-width: 1200px;
+    /*margin: 50px auto;*/
+    background-color: #fff;
+    /*padding: 20px;*/
+    /*border-radius: 8px;*/
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+}
+
+.media-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.media-toolbar h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #333;
+}
+.media-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 30px;
+}
+
+.media-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.media-item:hover {
+    transform: translateY(-5px);
+}
+
+.media-item img {
+    width: 100%;
+    height: auto;
+    max-height: 140px;
+    display: block;
+    border-radius: 8px 8px 0 0;
+}
+
+.media-item p {
+    margin: 0;
+    padding: 12px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+.media-upload-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 4px dashed #c3c4c7;
+}
+
+.media-upload-container h2 {
+    margin-top: 0;
+    font-size: 28px;
+    color: #333;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upload-form label {
+    font-size: 18px;
+}
+
+.upload-form input[type="file"] {
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.preview {
+    margin-top: 30px;
+}
+
+.preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.role-pagination-container,
+.media-pagination-container{
+    margin-top: 40px;
+    text-align: right;
+}
+
+.role-pagination-container svg,
+.media-pagination-container svg{
+    width: 22px;
+}
+
+.role-pagination-container div:first-child,
+.media-pagination-container div:first-child{
+    display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

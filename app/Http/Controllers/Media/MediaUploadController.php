@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Media;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage\Image\Facades\Image;
@@ -23,7 +24,6 @@ class MediaUploadController extends Controller
         ]);
 
         try {
-
             $file = $request->file('file');
             $originalName = $file->getClientOriginalName();
             $fileName = pathinfo($originalName, PATHINFO_FILENAME);

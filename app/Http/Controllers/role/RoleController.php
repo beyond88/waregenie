@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index(Request $request): View
     {
-        $roles = Role::paginate(1);
+        $roles = Role::paginate(20);
         return view('role.role', compact('roles'));
     }
     /**

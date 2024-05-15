@@ -13381,9 +13381,10 @@ dl {
 }
 
 .media-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+    text-align: right;
     margin-bottom: 30px;
 }
 

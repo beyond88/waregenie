@@ -38,10 +38,10 @@
 
                                     <div class="media-container">
                                         <div class="media-toolbar">
-                                            <button class="btn btn-success btn-fw">
+                                            <a href="{{ url('upload') }}" class="btn btn-success btn-fw">
                                                 <i class="icon-plus"></i>
                                                 Add New
-                                            </button>
+                                            </a>
                                         </div>
 
                                         <div class="media-list">

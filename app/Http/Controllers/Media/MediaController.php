@@ -12,7 +12,7 @@ class MediaController extends Controller
 {
     public function index(): View
     {
-        $media = Media::paginate(5);
+        $media = Media::paginate(30);
         return view('media.media', compact('media'));
     }
 

@@ -36,6 +36,9 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 755 storage bootstrap/cache
 
+    - name: Debug Script
+      run: cat ftp-upload.sh  # Print the contents of the script for debugging
+
     - name: Deploy to Production
       env:
         FTP_SERVER: ${{ secrets.FTP_SERVER }}
@@ -46,4 +49,4 @@ jobs:
         echo "user=$FTP_USERNAME\npassword=$FTP_PASSWORD" > ~/.ftp/credentials
         curl -O https://gist.githubusercontent.com/willbidelman/8e2f437b411e3e9d3f57/raw/21f22d6f984c33acdbe9ad78134d0ab2d6d65bd5/ftp-upload.sh
         chmod u+x ftp-upload.sh
-        ./ftp-upload.sh --server "$FTP_SERVER" --remote-dir "/var/www/your-project" --exclude ".git/* vendor/* node_modules/*"
+        ./ftp-upload.sh --server "$FTP_SERVER" --remote-dir "/home/thebirsd/products" --exclude ".git/* vendor/* node_modules/*"

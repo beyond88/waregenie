@@ -103,4 +103,4 @@ This project can be run basically in two ways. One is using docker, other way is
 -   Scale the system to support growing business needs and increasing inventory volumes.
 
 ## Trello Board
-<p><tt>[https://trello.com/b/nC8QJJoZ/trello-development](https://trello.com/b/kOGMUkmG/waregenie)</tt></p>
+<p><tt>https://trello.com/b/nC8QJJoZ/trello-development</tt></p>

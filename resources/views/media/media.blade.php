@@ -38,7 +38,7 @@
 
                                     <div class="media-container">
                                         <div class="media-toolbar">
-                                            <a href="{{ url('upload') }}" class="btn btn-success btn-fw">
+                                            <a href="{{ url('media/upload') }}" class="btn btn-success btn-fw">
                                                 <i class="icon-plus"></i>
                                                 Add New
                                             </a>
@@ -48,6 +48,11 @@
                                             @forelse ($media as $item)
                                             <div class="media-item">
                                                 <img src="{{ asset('storage/media/' . basename($item->media_name))}}" alt="{{$item->media_name}}" />
+                                                <form action="{{ url('media/delete/' . $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this media?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm mt-2">Delete</button>
+                                                </form>
                                             </div>
                                             @empty
                                                 <p>Media not found!</p>

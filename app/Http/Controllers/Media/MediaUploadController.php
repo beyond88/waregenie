@@ -68,4 +68,35 @@ class MediaUploadController extends Controller
 
         return Storage::disk('public')->exists("media/$fileName.$extension");
     }
+
+    /**
+     * Delete media file.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteMedia($id)
+    {
+        try {
+            // Find the media record in the database
+            $media = Media::findOrFail($id);
+            $mediaName = $media->media_name;
+            $filePath = "media/$mediaName";
+
+            // Check if the file exists in the storage
+            if (Storage::disk('public')->exists($filePath)) {
+                // Delete the file from the storage
+                Storage::disk('public')->delete($filePath);
+
+                // Delete the media record from the database
+                $media->delete();
+
+                return redirect()->route('media.media')->with('message', 'Media deleted successfully!')->with('type', 'success');
+            } else {
+                return redirect()->route('media.media')->with('message', 'Media file not found.')->with('type', 'error');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('media.media')->with('message', 'Deletion failed: ' . $e->getMessage())->with('type', 'error');
+        }
+    }
 }

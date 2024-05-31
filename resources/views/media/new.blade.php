@@ -39,10 +39,11 @@
                                     <div class="media-upload-container">
                                         <h2>Media Upload</h2>
 
-                                        <form class="upload-form" enctype="multipart/form-data">
+                                        <form method="post" action="{{ route('media.new') }}" class="upload-form" enctype="multipart/form-data">
+                                            @csrf
                                             <label for="file">Choose File:</label>
                                             <input type="file" id="file" name="file" required />
-                                            <button type="button" class="btn btn-success btn-fw">Upload</button>
+                                            <button type="submit" name="upload" class="btn btn-success btn-fw">Upload</button>
                                         </form>
 
                                         <div class="preview" id="preview">

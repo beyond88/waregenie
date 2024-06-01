@@ -47,7 +47,9 @@
                                         <div class="media-list">
                                             @forelse ($media as $item)
                                             <div class="media-item">
-                                                <img src="{{ asset('storage/media/' . basename($item->media_name))}}" alt="{{$item->media_name}}" />
+                                                <a href="{{ url('media/' . $item->id) }}">
+                                                    <img src="{{ asset('storage/media/' . basename($item->media_name))}}" alt="{{$item->media_name}}" />
+                                                </a>
                                                 <form action="{{ url('media/delete/' . $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this media?');">
                                                     @csrf
                                                     @method('DELETE')

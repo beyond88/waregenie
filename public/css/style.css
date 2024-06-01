@@ -131,9 +131,9 @@
     opacity: 0; }
   100% {
     opacity: 1; } }
-
 @-webkit-keyframes bounce {
-  0% {
+
+    0% {
     -webkit-transform: translateY(0);
     transform: translateY(0); }
   20% {
@@ -13485,6 +13485,17 @@ dl {
 .role-pagination-container div:first-child,
 .media-pagination-container div:first-child{
     display: none;
+}
+.media-upload-container img{
+    width: 100%;
+}
+
+.media-details-table{
+    margin-top: 20px;
+}
+
+.media-details-table td{
+    padding: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -78,18 +78,14 @@ class MediaUploadController extends Controller
     public function deleteMedia($id)
     {
         try {
-            // Find the media record in the database
             $media = Media::findOrFail($id);
             $mediaName = $media->media_name;
             $filePath = "media/$mediaName";
 
-            // Check if the file exists in the storage
             if (Storage::disk('public')->exists($filePath)) {
-                // Delete the file from the storage
                 Storage::disk('public')->delete($filePath);
             }
 
-            // Delete the media record from the database
             $media->delete();
 
             $message = Storage::disk('public')->exists($filePath) ? 'Media deleted successfully!' : 'Media record deleted successfully, but the file was not found in storage.';

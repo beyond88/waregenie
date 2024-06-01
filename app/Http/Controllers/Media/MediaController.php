@@ -38,7 +38,7 @@ class MediaController extends Controller
     public function deleteMedia($id){
 
         $mediaUploader = app()->make(MediaUploadController::class);
-        $mediaResponse = $mediaUploader->deleteMedia($id);
+        $mediaUploader->deleteMedia($id);
         return redirect()->route('media.media')->with('success', 'Media deleted successfully!');
 
     }

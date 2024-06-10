@@ -56,7 +56,7 @@
                                             </tr>
                                             <tr>
                                                 <td><strong>Upload Time:</strong></td>
-                                                <td></td>
+                                                <td>{{$media->created_at->format('F j, Y, g:i a')}}</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
@@ -68,8 +68,10 @@
                                             <tr>
                                                 <td></td>
                                                 <td>
+
                                                     <form action="{{ url('media/delete/' . $media->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this media?');">
                                                         @csrf
+                                                        <a href="{{url('media')}}">Back</a>&nbsp;
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm mt-2">Delete</button>
                                                     </form>

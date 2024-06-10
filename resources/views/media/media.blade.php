@@ -42,6 +42,10 @@
                                                 <i class="icon-plus"></i>
                                                 Add New
                                             </a>
+                                            <form class="form-inline float-right" action="{{ url('media') }}" method="GET">
+                                                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search media..." value="{{ $search ?? '' }}">
+                                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                            </form>
                                         </div>
 
                                         <div class="media-list">

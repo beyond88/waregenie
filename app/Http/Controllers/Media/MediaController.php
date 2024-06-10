@@ -12,10 +12,16 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $media = Media::paginate(30);
-        return view('media.media', compact('media'));
+        $search = $request->input('search');
+        if ($search) {
+            $media = Media::where('media_name', 'like', '%' . $search . '%')->paginate(30);
+        } else {
+            $media = Media::paginate(30);
+        }
+
+        return view('media.media', compact('media', 'search'));
     }
 
     public function addNewMedia()

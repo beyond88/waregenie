@@ -6,16 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class RoleController extends Controller
 {
     public function index(Request $request): View
     {
         $roles = Role::paginate(20);
+
         return view('role.role', compact('roles'));
     }
+
     /**
      * Display the registration view.
      */
@@ -38,13 +40,15 @@ class RoleController extends Controller
 
         try {
             $role = Role::create($validated);
+
             return redirect()->route('role.create')
                 ->with('message', 'Role created successfully!')
                 ->with('type', 'success');
 
         } catch (\Illuminate\Database\QueryException $e) {
-            if(str_contains($e->getMessage(), 'roles_name_unique')) {
-                session()->flash('error', 'The role name "' . $request->name . '" already exists. Please choose a different name.');
+            if (str_contains($e->getMessage(), 'roles_name_unique')) {
+                session()->flash('error', 'The role name "'.$request->name.'" already exists. Please choose a different name.');
+
                 return redirect()->back()->withInput();
             } else {
                 return redirect()->back()->withInput();
@@ -62,7 +66,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:roles,name,' . $id, // Unique rule excluding current role
+            'name' => 'required|string|max:255|unique:roles,name,'.$id, // Unique rule excluding current role
         ]);
 
         if ($validator->fails()) {

@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class PermissionController extends Controller
 {
@@ -17,6 +17,7 @@ class PermissionController extends Controller
     public function index(): View
     {
         $roles = Role::all();
+
         return view('role.permissions', compact('roles'));
     }
 
@@ -26,6 +27,7 @@ class PermissionController extends Controller
             $roleId = $request->get('role_id');
             $role = Role::find($roleId);
             $permissions = $role->permissions ?? [];
+
             return response()->json($permissions);
         } else {
             return back();
@@ -55,15 +57,14 @@ class PermissionController extends Controller
         if ($saved) {
             Session::flash('message', 'Permissions saved successfully!');
             Session::flash('type', 'success');
+
             return redirect()->route('permissions');
         } else {
             Session::flash('message', 'An error occurred while saving permissions!');
             Session::flash('type', 'danger');
+
             return back()->withInput();
         }
 
     }
-
-
-
 }

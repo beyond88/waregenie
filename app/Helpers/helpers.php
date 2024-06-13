@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+
 function is_route_active($routeName)
 {
     return Str::contains(request()->url(), $routeName);
@@ -46,6 +46,7 @@ function getImageById($id)
     if ($media) {
         return $media->media_name;
     }
+
     return null;
 }
 
@@ -54,10 +55,12 @@ function getProfilePicture()
 
     $userId = Auth::id();
     $avatarId = getUserMeta($userId, 'avatar');
-    if(!empty($avatarId)) {
+    if (! empty($avatarId)) {
         $avatar = getImageById($avatarId);
-        return asset('storage/media/' . basename($avatar));
+
+        return asset('storage/media/'.basename($avatar));
     }
+
     return null;
 
 }
@@ -82,7 +85,8 @@ function getUserRoleName($userId)
     }
 }
 
-function generateTextAvatar($fullName, $size = 100) {
+function generateTextAvatar($fullName, $size = 100)
+{
 
     $words = explode(' ', trim($fullName));
 
@@ -92,11 +96,9 @@ function generateTextAvatar($fullName, $size = 100) {
     $lastName = isset($words[count($words) - 1]) ? $words[count($words) - 1] : '';
     $lastInitial = strtoupper(substr($lastName, 0, 1));
 
-    $avatar = '<div class="text-avatar" style="width: ' . $size . 'px; height: ' . $size . 'px; line-height: ' . $size . 'px;">';
-    $avatar .= '<span>' . $firstInitial . $lastInitial . '</span>';
+    $avatar = '<div class="text-avatar" style="width: '.$size.'px; height: '.$size.'px; line-height: '.$size.'px;">';
+    $avatar .= '<span>'.$firstInitial.$lastInitial.'</span>';
     $avatar .= '</div>';
 
     echo $avatar;
 }
-
-

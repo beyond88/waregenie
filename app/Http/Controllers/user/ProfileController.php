@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\User;
+
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Media\MediaUploadController;
 use Illuminate\Http\Request;
@@ -20,11 +21,11 @@ class ProfileController extends Controller
         $avatarId = getUserMeta(Auth::id(), 'avatar');
         $avatar = getImageById($avatarId);
 
-        if( !empty($avatar) ) {
-            $avatar = asset('storage/media/' . basename($avatar));
+        if (! empty($avatar)) {
+            $avatar = asset('storage/media/'.basename($avatar));
         }
 
-        if( empty($avatar) ) {
+        if (empty($avatar)) {
             $avatar = asset('images/avatar.png');
         }
 
@@ -46,14 +47,14 @@ class ProfileController extends Controller
             updateUserMeta($userId, $metaKey, $metaValue);
         }
 
-        if($request->filled('password')){
+        if ($request->filled('password')) {
             $request->validate([
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
             $user = Auth::user();
             $newPassword = Hash::make($request->password);
-            if (!Hash::check($newPassword, $user->password)) {
+            if (! Hash::check($newPassword, $user->password)) {
                 $user->password = $newPassword;
                 $user->save();
             }
@@ -61,6 +62,4 @@ class ProfileController extends Controller
 
         return redirect()->route('user.profile')->with('success', 'Profile updated successfully!');
     }
-
 }
-

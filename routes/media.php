@@ -11,13 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('media/delete/{id}', [MediaController::class, 'deleteMedia'])->name('media.delete');
     Route::get('media/{id}', [MediaController::class, 'displaySingleMedia'])
         ->name('media.show');
+    Route::get('media/edit/{id}', [MediaController::class, 'editMedia'])
+        ->name('media.edit');
+
+    Route::post('media/edit/{id}', [MediaController::class, 'updateMedia'])->name('media.update');
 
     Route::get('media/download/{filename}', function ($filename) {
-        // Define the path to the image
-        //$path = storage_path('app/public/storage/media/' . $filename);
-        $path = public_path('storage/media/' . basename($filename));
-
-        if (!file_exists($path)) {
+        $path = public_path('storage/media/'.basename($filename));
+        if (! file_exists($path)) {
             abort(404);
         }
 

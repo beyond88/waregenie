@@ -21,6 +21,7 @@ class UserController extends Controller
     public function index(Request $request): View
     {
         $users = User::with('role')->paginate(20);
+
         return view('user.user', compact('users'));
     }
 
@@ -30,6 +31,7 @@ class UserController extends Controller
     public function create(): View
     {
         $roles = Role::all();
+
         return view('user.create', compact('roles'));
     }
 
@@ -47,7 +49,7 @@ class UserController extends Controller
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
-                $user = User::create([
+            $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),

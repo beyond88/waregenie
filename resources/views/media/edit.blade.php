@@ -1,5 +1,5 @@
 @extends("layouts.layout")
-@section("title", "Media Details | Waregenie")
+@section("title", "Edit Media | Waregenie")
 @section("content")
     <div class="container-scroller">
 
@@ -16,7 +16,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{url('media')}}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Media Details</li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Media</li>
                             </ol>
                         </nav>
                     </div>
@@ -39,11 +39,20 @@
                                     <div class="media-upload-container">
                                         <h2>Media Details</h2>
                                         <img src="{{ asset('storage/media/' . basename($media->media_name))}}" alt="{{$media->media_name}}" />
+                                        <form action="{{ url('media/edit/' . $media->id) }}" method="POST">
+                                            @csrf
+                                            <table class="media-details-table">
+                                                <tr>
+                                                    <td><strong>Name:</strong></td>
+                                                    <td>
+                                                        <input type="text" name="media_name" class="" value="{{$fileNameWithoutExtension}}" style="min-width:500px;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <button type="submit" class="btn btn-success btn-sm mt-2">Update</button>
+                                        </form>
+
                                         <table class="media-details-table">
-                                            <tr>
-                                                <td><strong>Name:</strong></td>
-                                                <td>{{$media->media_name}}</td>
-                                            </tr>
                                             <tr>
                                                 <td><strong>File Type:</strong></td>
                                                 <td>{{ $fileType }}</td>
@@ -72,11 +81,10 @@
                                             <tr>
                                                 <td></td>
                                                 <td>
-
                                                     <form action="{{ url('media/delete/' . $media->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this media?');">
                                                         @csrf
                                                         <a href="{{url('media')}}">Back</a>&nbsp;
-                                                        <!-- <a href="{{ url('media/edit/' . $media->id) }}">Edit</a>&nbsp; -->
+                                                        <a href="{{ url('media/edit/' . $media->id) }}">Edit</a>&nbsp;
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm mt-2">Delete</button>
                                                     </form>

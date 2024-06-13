@@ -34,9 +34,11 @@ class DatabaseConnectionCheck extends Command
             $connection = DB::connection($connectionName);
             $databaseName = $connection->getDatabaseName();
             $this->info("Successfully connected to database: $databaseName");
+
             return 0; // Exit code 0 indicates success
         } catch (Exception $e) {
-            $this->error("Failed to connect to database: " . $e->getMessage());
+            $this->error('Failed to connect to database: '.$e->getMessage());
+
             return 1; // Exit code 1 indicates failure
         }
     }

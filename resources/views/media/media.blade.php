@@ -2,13 +2,9 @@
 @section("title", "Media | Waregenie")
 @section("content")
     <div class="container-scroller">
-
         @include("layouts.top-bar")
-
         <div class="container-fluid page-body-wrapper">
-
             @include("layouts.sidebar")
-
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
@@ -52,7 +48,21 @@
                                             @forelse ($media as $item)
                                             <div class="media-item">
                                                 <a href="{{ url('media/' . $item->id) }}">
-                                                    <img src="{{ asset('storage/media/' . basename($item->media_name))}}" alt="{{$item->media_name}}" />
+                                                    @if (Str::endsWith($item->media_name, ['.jpg', '.jpeg', '.png', '.gif', '.JPG', '.PNG', 'JPEG', '.GIF']))
+                                                        <img src="{{ asset('storage/media/' . basename($item->media_name)) }}" alt="{{ $item->media_name }}" />
+                                                    @elseif (Str::endsWith($item->media_name, ['.pdf']))
+                                                        <embed src="{{ asset('storage/media/' . basename($item->media_name)) }}" type="application/pdf" width="100%" height="200px" />
+                                                    @elseif (Str::endsWith($item->media_name, ['.mp4', '.webm']))
+                                                        <video width="100%" height="200px" controls>
+                                                            <source src="{{ asset('storage/media/' . basename($item->media_name)) }}" type="video/mp4">
+                                                        </video>
+                                                    @elseif (Str::endsWith($item->media_name, ['.mp3', '.wav']))
+                                                        <audio controls>
+                                                            <source src="{{ asset('storage/media/' . basename($item->media_name)) }}" type="audio/mpeg">
+                                                        </audio>
+                                                    @else
+                                                        <a href="{{ asset('storage/media/' . basename($item->media_name)) }}" target="_blank">{{ $item->media_name }}</a>
+                                                    @endif
                                                 </a>
                                                 <form action="{{ url('media/delete/' . $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this media?');">
                                                     @csrf

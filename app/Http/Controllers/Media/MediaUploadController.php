@@ -1,20 +1,19 @@
 <?php
 
 namespace App\Http\Controllers\Media;
+
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Exception;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use InterventionImage\Image\Facades\Image;
 use Illuminate\Support\Str;
-use App\Models\Media;
 
 class MediaUploadController extends Controller
 {
     /**
      * Upload media file.
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadMedia(Request $request)
@@ -29,9 +28,9 @@ class MediaUploadController extends Controller
             $fileName = pathinfo($originalName, PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
 
-            $newFileName = $fileName . '_' . Str::random(10) . '.' . $extension;
+            $newFileName = $fileName.'_'.Str::random(10).'.'.$extension;
             while ($this->checkForDuplicate($fileName, $extension, $newFileName)) {
-                $newFileName = $fileName . '_' . Str::random(10) . '.' . $extension;
+                $newFileName = $fileName.'_'.Str::random(10).'.'.$extension;
             }
 
             $file->storeAs('public/media', $newFileName);
@@ -49,14 +48,14 @@ class MediaUploadController extends Controller
     /**
      * Check for duplicate filename in media table and storage.
      *
-     * @param string $fileName
-     * @param string $extension
-     * @param string $newFileName (optional)
+     * @param  string  $fileName
+     * @param  string  $extension
+     * @param  string  $newFileName  (optional)
      * @return bool
      */
     private function checkForDuplicate($fileName, $extension, $newFileName = null)
     {
-        $existingMedia = Media::where('media_name', $fileName . '.' . $extension)->first();
+        $existingMedia = Media::where('media_name', $fileName.'.'.$extension)->first();
 
         if ($existingMedia) {
             return true;
@@ -72,7 +71,7 @@ class MediaUploadController extends Controller
     /**
      * Delete media file.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function deleteMedia($id)
@@ -93,7 +92,7 @@ class MediaUploadController extends Controller
 
             return redirect()->route('media.media')->with('message', $message)->with('type', $type);
         } catch (\Exception $e) {
-            return redirect()->route('media.media')->with('message', 'Deletion failed: ' . $e->getMessage())->with('type', 'error');
+            return redirect()->route('media.media')->with('message', 'Deletion failed: '.$e->getMessage())->with('type', 'error');
         }
     }
 }

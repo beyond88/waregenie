@@ -56,6 +56,12 @@ class RoleController extends Controller
         }
     }
 
+    /**
+     * Show the form for editing the specified role.
+     *
+     * @param int $id
+     * @return View
+     */
     public function edit($id): View
     {
         $role = Role::findOrFail($id);
@@ -63,28 +69,51 @@ class RoleController extends Controller
         return view('role.edit', compact('role'));
     }
 
+    /**
+     * Update the specified role in storage.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
+        // Validate the request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:roles,name,'.$id, // Unique rule excluding current role
         ]);
 
+        // If validation fails, redirect back with errors and input
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
+        // Find the role by ID or fail
         $role = Role::findOrFail($id);
 
+        // Update the role with the request data
         $role->update($request->all());
 
+        // Redirect to the roles list with a success message
         return redirect()->route('role')->with('success', 'Role updated successfully!');
     }
 
+    /**
+     * Remove the specified role from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id): RedirectResponse
     {
+        // Find the role by ID or fail
         $role = Role::findOrFail($id);
+
+        // Delete the role
         $role->delete();
 
+        // Redirect to the roles list with a success message
         return redirect()->route('role')->with('success', 'Role deleted successfully!');
     }
+
 }

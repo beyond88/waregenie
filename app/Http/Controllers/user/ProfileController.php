@@ -37,7 +37,6 @@ class ProfileController extends Controller
      *
      * This method handles updating the user's profile picture and password.
      *
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function profileUpdate(Request $request)
@@ -77,5 +76,4 @@ class ProfileController extends Controller
         // Redirect back to the user's profile with a success message
         return redirect()->route('user.profile')->with('success', 'Profile updated successfully!');
     }
-
 }

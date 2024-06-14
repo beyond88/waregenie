@@ -6,23 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class MediaController extends Controller
 {
     /**
      * Display a listing of the media items with optional search functionality.
-     *
-     * @param Request $request
-     * @return View
      */
     public function index(Request $request): View
     {
         $search = $request->input('search');
-        if ($search) {
-            $media = Media::where('media_name', 'like', '%' . $search . '%')->paginate(30);
-        } else {
-            $media = Media::paginate(30);
+        $cacheKey = 'media_list_' . md5((string) $search);
+
+        $media = Cache::remember($cacheKey, 30, function () use ($search) {
+            if ($search) {
+                Log::debug("Fetching media list from database for search term: $search");
+                return Media::where('media_name', 'like', '%' . $search . '%')->paginate(30);
+            } else {
+                Log::debug("Fetching media list from database without search term");
+                return Media::paginate(30);
+            }
+        });
+
+        if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore && Cache::tags(['media'])->has($cacheKey)) {
+            Log::debug("Loading media list from cache for cache key: $cacheKey");
         }
 
         return view('media.media', compact('media', 'search'));
@@ -30,8 +39,6 @@ class MediaController extends Controller
 
     /**
      * Show the form for creating a new media item.
-     *
-     * @return View
      */
     public function addNewMedia(): View
     {
@@ -41,7 +48,6 @@ class MediaController extends Controller
     /**
      * Handle the upload of a new media item.
      *
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function uploadNewMedia(Request $request)
@@ -59,7 +65,7 @@ class MediaController extends Controller
     /**
      * Remove the specified media item from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteMedia($id)
@@ -73,15 +79,16 @@ class MediaController extends Controller
     /**
      * Show the size of the specified image in a human-readable format.
      *
-     * @param string $image
+     * @param  string  $image
      * @return string
      */
     public function showImageSize($image)
     {
-        $imagePath = public_path('storage/media/' . basename($image));
+        $imagePath = public_path('storage/media/'.basename($image));
 
         if (file_exists($imagePath)) {
             $size = filesize($imagePath);
+
             return $this->formatBytes($size);
         } else {
             return 'Image not found.';
@@ -91,8 +98,8 @@ class MediaController extends Controller
     /**
      * Format bytes into a human-readable string.
      *
-     * @param int $bytes
-     * @param int $precision
+     * @param  int  $bytes
+     * @param  int  $precision
      * @return string
      */
     private function formatBytes($bytes, $precision = 2)
@@ -105,14 +112,13 @@ class MediaController extends Controller
 
         $bytes /= (1 << (10 * $pow));
 
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return round($bytes, $precision).' '.$units[$pow];
     }
 
     /**
      * Display the specified media item's details.
      *
-     * @param int $id
-     * @return View
+     * @param  int  $id
      */
     public function displaySingleMedia($id): View
     {
@@ -120,7 +126,7 @@ class MediaController extends Controller
         $imageSize = $this->showImageSize($media->media_name);
 
         // Get image dimensions
-        $imagePath = public_path('storage/media/' . basename($media->media_name));
+        $imagePath = public_path('storage/media/'.basename($media->media_name));
         if (File::exists($imagePath)) {
             [$width, $height] = getimagesize($imagePath);
         } else {
@@ -136,8 +142,7 @@ class MediaController extends Controller
     /**
      * Show the form for editing the specified media item.
      *
-     * @param int $id
-     * @return View
+     * @param  int  $id
      */
     public function editMedia($id): View
     {
@@ -145,7 +150,7 @@ class MediaController extends Controller
         $imageSize = $this->showImageSize($media->media_name);
 
         // Get image dimensions
-        $imagePath = public_path('storage/media/' . basename($media->media_name));
+        $imagePath = public_path('storage/media/'.basename($media->media_name));
         if (File::exists($imagePath)) {
             [$width, $height] = getimagesize($imagePath);
         } else {
@@ -162,8 +167,7 @@ class MediaController extends Controller
     /**
      * Update the specified media item in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updateMedia(Request $request, $id)
@@ -176,7 +180,7 @@ class MediaController extends Controller
         $media = Media::findOrFail($id);
 
         $oldExtension = pathinfo($media->media_name, PATHINFO_EXTENSION);
-        $newMediaName = $request->input('media_name') . '.' . $oldExtension;
+        $newMediaName = $request->input('media_name').'.'.$oldExtension;
         $media->media_name = $newMediaName;
 
         if ($request->hasFile('file')) {
@@ -185,10 +189,10 @@ class MediaController extends Controller
             $fileName = pathinfo($originalName, PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
 
-            $newFileName = $fileName . '_' . Str::random(10) . '.' . $extension;
+            $newFileName = $fileName.'_'.Str::random(10).'.'.$extension;
             $mediaUploader = app()->make(MediaUploadController::class);
             while ($mediaUploader->checkForDuplicate($fileName, $extension, $newFileName)) {
-                $newFileName = $fileName . '_' . Str::random(10) . '.' . $extension;
+                $newFileName = $fileName.'_'.Str::random(10).'.'.$extension;
             }
 
             $file->storeAs('public/media', $newFileName);

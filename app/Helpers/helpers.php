@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * Check if the current route is active by matching the URL with the given route name.
  *
- * @param string $routeName
+ * @param  string  $routeName
  * @return bool
  */
 function is_route_active($routeName)
@@ -16,8 +16,8 @@ function is_route_active($routeName)
 /**
  * Retrieve user meta data for a specific key.
  *
- * @param int $userId
- * @param string $key
+ * @param  int  $userId
+ * @param  string  $key
  * @return mixed|null
  */
 function getUserMeta($userId, $key)
@@ -36,9 +36,9 @@ function getUserMeta($userId, $key)
 /**
  * Update or create user meta data for a specific key.
  *
- * @param int $userId
- * @param string $key
- * @param mixed $value
+ * @param  int  $userId
+ * @param  string  $key
+ * @param  mixed  $value
  * @return bool
  */
 function updateUserMeta($userId, $key, $value)
@@ -63,7 +63,7 @@ function updateUserMeta($userId, $key, $value)
 /**
  * Retrieve the name of a media item by its ID.
  *
- * @param int $id
+ * @param  int  $id
  * @return string|null
  */
 function getImageById($id)
@@ -85,10 +85,10 @@ function getProfilePicture()
 {
     $userId = Auth::id();
     $avatarId = getUserMeta($userId, 'avatar');
-    if (!empty($avatarId)) {
+    if (! empty($avatarId)) {
         $avatar = getImageById($avatarId);
 
-        return asset('storage/media/' . basename($avatar));
+        return asset('storage/media/'.basename($avatar));
     }
 
     return null;
@@ -99,7 +99,7 @@ use App\Models\User;
 /**
  * Get the role name of a user by their ID.
  *
- * @param int $userId
+ * @param  int  $userId
  * @return string
  */
 function getUserRoleName($userId)
@@ -122,8 +122,8 @@ function getUserRoleName($userId)
 /**
  * Generate a text-based avatar using the initials of a user's full name.
  *
- * @param string $fullName
- * @param int $size
+ * @param  string  $fullName
+ * @param  int  $size
  * @return void
  */
 function generateTextAvatar($fullName, $size = 100)
@@ -136,8 +136,8 @@ function generateTextAvatar($fullName, $size = 100)
     $lastName = isset($words[count($words) - 1]) ? $words[count($words) - 1] : '';
     $lastInitial = strtoupper(substr($lastName, 0, 1));
 
-    $avatar = '<div class="text-avatar" style="width: ' . $size . 'px; height: ' . $size . 'px; line-height: ' . $size . 'px;">';
-    $avatar .= '<span>' . $firstInitial . $lastInitial . '</span>';
+    $avatar = '<div class="text-avatar" style="width: '.$size.'px; height: '.$size.'px; line-height: '.$size.'px;">';
+    $avatar .= '<span>'.$firstInitial.$lastInitial.'</span>';
     $avatar .= '</div>';
 
     echo $avatar;

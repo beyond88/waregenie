@@ -59,8 +59,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified role.
      *
-     * @param int $id
-     * @return View
+     * @param  int  $id
      */
     public function edit($id): View
     {
@@ -72,8 +71,7 @@ class RoleController extends Controller
     /**
      * Update the specified role in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
@@ -101,8 +99,7 @@ class RoleController extends Controller
     /**
      * Remove the specified role from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  int  $id
      */
     public function destroy($id): RedirectResponse
     {
@@ -115,5 +112,4 @@ class RoleController extends Controller
         // Redirect to the roles list with a success message
         return redirect()->route('role')->with('success', 'Role deleted successfully!');
     }
-
 }
